@@ -53,3 +53,8 @@ The fetch_weather_data will run at http://localhost:8000/
 You can post the api's data into the database.
 
 If you want to view the fetched data from the database just go to http://localhost:8000/get_weather_data
+
+Unit Test:
+
+The application includes comprehensive unit tests to ensure the correct functioning of the API and data-fetching process. To run the tests, execute the following command:
+python manage.py test
