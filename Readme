@@ -1,0 +1,55 @@
+Weather Data Backend Application using Django Rest Framework and PostgreSQL
+Overview:
+This project involves building a Python backend application using Django Rest Framework (DRF) and PostgreSQL to fetch weather data from an external API and store it in the database. The application will use Python 3.x for development.
+
+Requirements:
+
+1. Django Rest Framework (DRF) will be used to build the API endpoints.
+2. PostgreSQL will be utilized as the database to store weather data.
+3. Weather data will be fetched from the Open Meteo API (https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m).
+4. A Django model will be created to store the weather data received from the API.
+5. An API endpoint will be implemented to fetch weather data from the API and store it in the database.
+6. The API will handle errors and edge cases gracefully.
+7. Comprehensive documentation will be provided for the project, including API endpoints, their functionalities, and setup instructions.
+
+Setup Instructions:
+
+1. Install python 3.x in your system
+2. Clone the repo from Github link: https://github.com/ekataghimire/WeatherProject-Api.git
+3. Create a virtual environment:
+   windows cmd : python -m venv venv
+   : venv\Scripts\activate #this will activate the virtual environment
+4. Install the following:
+   pip install requests
+   pip install djangorestframework
+   pip install psycopg2
+5. Install the postgresql and then create a new database. Make a connection to your database as follows:
+   DATABASES = {
+   'default': {
+   'ENGINE': 'django.db.backends.postgresql',
+   'NAME': '',
+   'USER' : '',
+   'PASSWORD': '',
+   'HOST': '' ,
+   'PORT': '',
+   }
+   }
+6. In your settings.py add the following:
+   INSTALLED_APPS:
+   'weather_api',
+   'rest_framework',
+
+7. Run the database migrations to create the necessary tables
+   python manage.py makemigrations
+   python manage.py migrate
+
+8. Run the development server
+   python manage.py runserver
+
+9. The backend application is now up and running at:
+   http://localhost:8000/
+
+The fetch_weather_data will run at http://localhost:8000/
+You can post the api's data into the database.
+
+If you want to view the fetched data from the database just go to http://localhost:8000/get_weather_data
