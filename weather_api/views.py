@@ -13,8 +13,9 @@ class WeatherDataPagination(PageNumberPagination):
 
 @api_view(['POST'])
 def fetch_weather_data(request):
+    #fetching the url
     api_url = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m"
-
+    # exception handling 
     try:
         # Fetch data from the API
         response = requests.get(api_url)
@@ -34,7 +35,7 @@ def fetch_weather_data(request):
             relativehumidity_2m=api_data['hourly']['relativehumidity_2m'],
             windspeed_10m=api_data['hourly']['windspeed_10m'],
         )
-
+        #saving the data in the database
         weather_data.save()
 
         # Paginate the saved data and return it in the response
@@ -42,14 +43,15 @@ def fetch_weather_data(request):
         paginated_data = paginator.paginate_queryset(WeatherData.objects.all(), request)
         serializer = WeatherDataSerializer(paginated_data, many=True)
         return paginator.get_paginated_response(serializer.data)
-
+    
+    # throwing exception if failed to fetch the data from the api
     except requests.exceptions.RequestException as e:
         return Response({"error": "Failed to fetch data from the API"}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
 
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
+#get the database stored data in the view
 @api_view(['GET'])
 def get_weather_data(request):
     weather_data = WeatherData.objects.all()
