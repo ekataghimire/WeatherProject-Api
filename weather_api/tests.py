@@ -5,6 +5,7 @@ from .models import WeatherData
 from .serializers import WeatherDataSerializer
 from django.urls import reverse
 
+#this test case verifies that the "fetch_weather_data" API endpoint is working correctly and is able to fetch weather data from the external API and store it in the database.
 class WeatherDataFetchTestCase(TestCase):
     def setUp(self):
         self.client = APIClient()
@@ -20,5 +21,3 @@ class WeatherDataFetchTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         self.assertGreater(WeatherData.objects.count(), 0)
-        # self.assertIn('message', response.data)
-        # self.assertEqual(response.data['message'], "Weather data fetched and stored successfully.")
